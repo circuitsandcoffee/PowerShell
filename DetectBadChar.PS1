@@ -17,9 +17,6 @@ $filesDeleted = @()
 
 Get-Childitem '\\fileshare\folder\*' | Where-Object {$_.Name -match "\.\d+" -and -not $_.PSIsContainer } | Select-String -List  -Pattern  '#' | Foreach-Object {
 
-       # Remove-Item $_.Path 
-       #$_.Path -replace '(.*\\A).(.*)', '$1[D|H]$2' 
-       #write-host $_.Path
        $_.Path -replace '(.*\\A).(.*)', '$1[D|H]$2'  | rm -Force -ea 0
        $filesDeleted += ($_.Filename -split '\.')[-1]
     }
